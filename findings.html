@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Findings: Help Isn't Everywhere</title>
+<style>
+  :root{
+    --crimson:#00665E; --crimson-dark:#00463F; --pink:#E1F2EF; --pink-line:#9ED3CA; --orange:#8F6400; --orange-light:#FBF1D9; --orange-ink:#6B4A00; --indigo:#4B3B8F; --indigo-light:#ECE9F7;
+    --ink:#1F1F1F; --text:#333333; --muted:#595959; --line:#DADADA; --panel:#F4F5F7; --cream:#FBF8F3;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:#fff;color:var(--text);font-family:Aptos,"Segoe UI",system-ui,-apple-system,Helvetica,Arial,sans-serif;font-size:18px;line-height:1.6}
+  a{color:var(--crimson);text-underline-offset:3px}
+  a:focus-visible{outline:3px solid var(--crimson);outline-offset:2px}
+  .wrap{max-width:820px;margin:0 auto;padding:0 24px}
+  header{background:var(--crimson);color:#fff;padding:44px 0 36px}
+  header .kicker{font-size:15px;letter-spacing:.08em;text-transform:uppercase;opacity:.9;margin:0 0 8px;font-weight:600}
+  header h1{margin:0 0 10px;font-size:40px;line-height:1.15;color:#fff}
+  header p{margin:0;font-size:19px;max-width:640px;color:#fff}
+  .status{display:inline-block;margin-top:18px;background:#fff;color:var(--crimson);font-weight:700;font-size:15px;padding:5px 12px;border-radius:999px}
+  main{padding:8px 0 40px}
+  section{padding:30px 0 6px;border-bottom:1px solid var(--line)}
+  section:last-of-type{border-bottom:none}
+  h2{font-size:26px;color:var(--ink);margin:0 0 14px;display:flex;align-items:center;gap:12px}
+  h2::before{content:"";width:6px;height:26px;background:var(--crimson);border-radius:3px;flex:none}
+  p{margin:0 0 14px}
+  .lead{font-size:20px;color:var(--ink)}
+  /* equation */
+  .equation{display:flex;flex-wrap:wrap;align-items:stretch;gap:10px;margin:18px 0 8px}
+  .eq-box{flex:1 1 150px;border-radius:12px;padding:14px 16px;text-align:center}
+  .eq-box .lbl{font-size:15px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+  .eq-box .big{font-size:40px;font-weight:800;line-height:1.1}
+  .eq-box .sub{font-size:15px;color:var(--muted)}
+  .need{background:var(--orange-light);color:var(--orange-ink)}
+  .svc{background:var(--pink);color:var(--crimson-dark)}
+  .gap{background:var(--orange);color:#fff}
+  .gap .sub{color:#fff;opacity:.92}
+  .op{align-self:center;font-size:32px;font-weight:700;color:var(--muted);flex:none}
+  .caption{font-size:16px;color:var(--muted);margin-top:6px}
+  /* labels */
+  .labels{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:18px 0 10px}
+  .label-card{border:1px solid var(--line);border-left:8px solid var(--orange);border-radius:10px;padding:14px 16px;background:#fff}
+  .label-card h3{margin:0 0 4px;font-size:18px;color:var(--ink)}
+  .label-card p{margin:0;font-size:17px}
+  .label-card.mid{border-left-color:var(--crimson)}
+  .label-card.na{border-left-color:#8C8C8C;background:repeating-linear-gradient(135deg,#fff 0 10px,#F2F2F2 10px 20px)}
+  .label-card.zero{border-left-color:#A79BDB}
+  .note{background:var(--cream);border-radius:10px;padding:14px 18px;margin:14px 0}
+  /* steps */
+  .steps{list-style:none;padding:0;margin:18px 0 12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;counter-reset:s}
+  .steps li{background:var(--indigo-light);border-radius:12px;padding:16px;counter-increment:s;position:relative}
+  .steps li::before{content:counter(s);display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--indigo);color:#fff;font-weight:800;font-size:20px;margin-bottom:10px}
+  .steps h3{margin:0 0 6px;font-size:20px;color:var(--ink)}
+  .steps p{margin:0;font-size:16px}
+  .example{border:2px solid var(--orange);border-radius:12px;padding:16px 18px;margin:16px 0 14px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center}
+  .example .name{font-weight:700;color:var(--ink);font-size:19px;flex:1 1 180px}
+  .example .math{font-size:24px;font-weight:700;color:var(--ink)}
+  .example .math b{color:var(--orange)}
+  .example .detail{flex-basis:100%;font-size:16px;color:var(--muted);margin:0}
+  /* table */
+  .table-wrap{overflow-x:auto;margin:16px 0}
+  table{width:100%;border-collapse:collapse;font-size:16px}
+  caption{text-align:left;font-size:16px;color:var(--muted);padding-bottom:8px}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+  thead th{background:var(--indigo);color:#fff;font-weight:700}
+  tbody tr:nth-child(even){background:#FAFAFA}
+  tbody th{font-weight:700;color:var(--ink)}
+  .check{background:#FFF4CC;color:#5C4400;padding:0 4px;border-radius:4px;font-size:14px;font-weight:600;white-space:nowrap}
+  /* law scale */
+  .scale{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 14px}
+  .chip{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:999px;padding:6px 14px 6px 6px;font-size:16px}
+  .chip .n{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
+  .n0{background:var(--orange);color:#fff}.n1{background:var(--orange-light);color:var(--orange-ink)}.n2{background:#F2F2F2;color:var(--ink);border:1px solid #BFBFBF}
+  /* limitations */
+  .limits{list-style:none;padding:0;margin:14px 0;display:grid;gap:10px}
+  .limits li{padding:12px 16px 12px 18px;border-left:4px solid var(--pink-line);background:#fff}
+  .limits b{color:var(--ink)}
+  .ai{background:var(--panel);border-radius:12px;padding:18px 20px;margin:14px 0}
+  .ai h3{margin:0 0 8px;font-size:19px;color:var(--ink)}
+  .todo{background:#FFF4CC;color:#5C4400;border-radius:6px;padding:2px 6px;font-weight:600}
+  footer{background:var(--ink);color:#fff;padding:28px 0;margin-top:10px;font-size:16px}
+  footer a{color:#fff}
+  footer p{margin:0 0 8px}
+  @media (max-width:560px){header h1{font-size:31px}.eq-box .big{font-size:32px}.op{flex-basis:100%;text-align:center}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  nav.top{background:var(--crimson-dark)}
+  nav.top .wrap{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:10px;padding-bottom:10px}
+  nav.top a{color:#fff;text-decoration:none;font-size:16px;font-weight:600;padding:4px 0;border-bottom:2px solid transparent}
+  nav.top a[aria-current="page"]{border-bottom-color:#F2C14E}
+  nav.top a:hover{border-bottom-color:#fff}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0}
+  .stat{background:var(--pink);border-radius:12px;padding:16px}
+  .stat .num{font-size:38px;font-weight:800;color:var(--crimson-dark);line-height:1.1}
+  .stat .what{font-size:16px;color:var(--text)}
+  .stat.gold{background:var(--orange-light)} .stat.gold .num{color:var(--orange-ink)}
+  figure{margin:18px 0}
+  figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px}
+  figcaption{font-size:16px;color:var(--muted);margin-top:8px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:16px;margin:10px 0 0}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .sw{width:18px;height:18px;border-radius:4px;display:inline-block;border:1px solid #9a9a9a}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+  .card{display:block;border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--text);background:#fff}
+  .card:hover{border-color:var(--crimson)}
+  .card h3{margin:0 0 6px;color:var(--crimson-dark);font-size:19px}
+  .card p{margin:0;font-size:16px}
+  .chart{margin:16px 0 8px}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:10px;margin:8px 0}
+  .bar-row .lab{font-size:16px;font-weight:600;color:var(--ink)}
+  .bar{height:28px;border-radius:6px}
+  .bar-row .val{font-weight:800;font-size:18px;color:var(--ink)}
+  .pair-title{font-weight:700;color:var(--ink);margin:18px 0 4px}
+  .big-diff{font-size:30px;font-weight:800;color:var(--orange-ink)}
+  .finding{border-left:6px solid var(--crimson);background:#fff;padding:4px 0 4px 18px;margin:8px 0 18px}
+  .finding h3{margin:0 0 4px;font-size:22px;color:var(--ink)}
+  @media (max-width:560px){.bar-row{grid-template-columns:110px 1fr 56px}}
+</style>
+</head>
+<body>
+<nav class="top" aria-label="Site"><div class="wrap"><a href="index.html">Home</a><a href="findings.html" aria-current="page">Findings</a><a href="about.html">How the scores work</a></div></nav>
+<header>
+  <div class="wrap">
+    <h1>What I've found so far</h1>
+    <p>Early results from five states and 367 counties. These are preliminary.</p>
+  </div>
+</header>
+<main class="wrap">
+
+  <section aria-labelledby="f1">
+    <h2 id="f1">Help follows people more than need</h2>
+    <p>When I split each state's counties in half by need, the higher-need half had 59% more overdose deaths per person but only 7% more harm reduction sites. These are the middle counties in each half.</p>
+    <div class="legend"><span><i class="sw" style="background:#8C8C8C"></i>Lower-need half</span><span><i class="sw" style="background:#B7861F"></i>Higher-need half</span></div>
+    <div class="chart" role="img" aria-label="Overdose deaths per 100,000: 22.3 in lower-need counties, 35.4 in higher-need counties. Sites per 100,000: 19.2 and 20.6.">
+      <p class="pair-title">Overdose deaths per 100,000 people <span class="big-diff">+59%</span></p>
+      <div class="bar-row"><span class="lab">Lower need</span><div><div class="bar" style="width:55.8%;background:#8C8C8C"></div></div><span class="val">22.3</span></div><div class="bar-row"><span class="lab">Higher need</span><div><div class="bar" style="width:88.5%;background:#B7861F"></div></div><span class="val">35.4</span></div>
+      <p class="pair-title">Harm reduction sites per 100,000 people <span class="big-diff">+7%</span></p>
+      <div class="bar-row"><span class="lab">Lower need</span><div><div class="bar" style="width:48.0%;background:#8C8C8C"></div></div><span class="val">19.2</span></div><div class="bar-row"><span class="lab">Higher need</span><div><div class="bar" style="width:51.5%;background:#B7861F"></div></div><span class="val">20.6</span></div>
+    </div>
+    <p>Splitting by population instead tells a different story: the bigger half of counties has 93% of the people and 88% of the sites. Where people are, sites mostly follow.</p>
+  </section>
+  <section aria-labelledby="f2">
+    <h2 id="f2">Rural counties are farthest from a syringe program</h2>
+    <p>Most of the most rural counties (88%) have no syringe program at all. Here is how far the typical county of each type is from the nearest one.</p>
+    <div class="chart" role="img" aria-label="Miles to the nearest syringe program: large city 3, suburbs 18, medium metro 21, small metro 32, small town 26, rural 35."><div class="bar-row"><span class="lab">Large city</span><div><div class="bar" style="width:7.5%;background:var(--crimson)"></div></div><span class="val">3 mi</span></div><div class="bar-row"><span class="lab">Suburbs</span><div><div class="bar" style="width:45.0%;background:var(--crimson)"></div></div><span class="val">18 mi</span></div><div class="bar-row"><span class="lab">Medium metro</span><div><div class="bar" style="width:52.5%;background:var(--crimson)"></div></div><span class="val">21 mi</span></div><div class="bar-row"><span class="lab">Small metro</span><div><div class="bar" style="width:80.0%;background:var(--crimson)"></div></div><span class="val">32 mi</span></div><div class="bar-row"><span class="lab">Small town</span><div><div class="bar" style="width:65.0%;background:var(--crimson)"></div></div><span class="val">26 mi</span></div><div class="bar-row"><span class="lab">Rural</span><div><div class="bar" style="width:87.5%;background:#B7861F"></div></div><span class="val">35 mi</span></div></div>
+    <p class="caption">Straight-line miles from each county's Census center of population, within the state, middle county of each type.</p>
+  </section>
+  <section aria-labelledby="f3">
+    <h2 id="f3">Gap counties by state</h2>
+    <p>Indiana has the highest share, almost one in four counties. This is the share of each state's counties (where I could score need) that are gap counties.</p>
+    <div class="chart" role="img" aria-label="Share of gap counties: Indiana 23%, Florida 21%, California 17%, New York 12%, Ohio 9%."><div class="bar-row"><span class="lab">Indiana</span><div><div class="bar" style="width:92.0%;background:#B7861F"></div></div><span class="val">23%</span></div><div class="bar-row"><span class="lab">Florida</span><div><div class="bar" style="width:84.0%;background:#B7861F"></div></div><span class="val">21%</span></div><div class="bar-row"><span class="lab">California</span><div><div class="bar" style="width:68.0%;background:#B7861F"></div></div><span class="val">17%</span></div><div class="bar-row"><span class="lab">New York</span><div><div class="bar" style="width:48.0%;background:#B7861F"></div></div><span class="val">12%</span></div><div class="bar-row"><span class="lab">Ohio</span><div><div class="bar" style="width:36.0%;background:#B7861F"></div></div><span class="val">9%</span></div></div>
+    <p class="caption">Scores compare counties within each state, so these shares show how need and help line up inside each state, not which state is worse overall.</p>
+  </section>
+  <section aria-labelledby="f4">
+    <h2 id="f4">State law matters, but it doesn't explain the gaps on its own</h2>
+    <p>All five states allow syringe programs, and none allows overdose prevention centers. Indiana still makes it a crime for a person living with HIV to share needles. But every county in a state has the same law, and help still varies a lot from county to county. Two Indiana counties of the same size, LaPorte and Delaware, are 84 and 16 miles from the nearest syringe program.</p>
+  </section>
+
+</main>
+<footer>
+  <div class="wrap">
+    <p><b>Hannah Ridner</b>, PhD Candidate, Department of Criminology &amp; Criminal Justice, Indiana University Bloomington</p>
+    <p>Email: hrridner@iu.edu</p>
+    <p style="margin:0">Presented at the American Society of Criminology annual meeting, 2026.</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>About This Tool: Help Isn't Everywhere</title>
+<title>Help Isn't Everywhere</title>
 <style>
   :root{
     --crimson:#00665E; --crimson-dark:#00463F; --pink:#E1F2EF; --pink-line:#9ED3CA; --orange:#8F6400; --orange-light:#FBF1D9; --orange-ink:#6B4A00; --indigo:#4B3B8F; --indigo-light:#ECE9F7;
@@ -85,122 +85,81 @@
   footer p{margin:0 0 8px}
   @media (max-width:560px){header h1{font-size:31px}.eq-box .big{font-size:32px}.op{flex-basis:100%;text-align:center}}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  nav.top{background:var(--crimson-dark)}
+  nav.top .wrap{display:flex;flex-wrap:wrap;gap:4px 22px;padding-top:10px;padding-bottom:10px}
+  nav.top a{color:#fff;text-decoration:none;font-size:16px;font-weight:600;padding:4px 0;border-bottom:2px solid transparent}
+  nav.top a[aria-current="page"]{border-bottom-color:#F2C14E}
+  nav.top a:hover{border-bottom-color:#fff}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0}
+  .stat{background:var(--pink);border-radius:12px;padding:16px}
+  .stat .num{font-size:38px;font-weight:800;color:var(--crimson-dark);line-height:1.1}
+  .stat .what{font-size:16px;color:var(--text)}
+  .stat.gold{background:var(--orange-light)} .stat.gold .num{color:var(--orange-ink)}
+  figure{margin:18px 0}
+  figure img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:12px}
+  figcaption{font-size:16px;color:var(--muted);margin-top:8px}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:16px;margin:10px 0 0}
+  .legend span{display:inline-flex;align-items:center;gap:8px}
+  .sw{width:18px;height:18px;border-radius:4px;display:inline-block;border:1px solid #9a9a9a}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:16px 0}
+  .card{display:block;border:1px solid var(--line);border-radius:12px;padding:16px;text-decoration:none;color:var(--text);background:#fff}
+  .card:hover{border-color:var(--crimson)}
+  .card h3{margin:0 0 6px;color:var(--crimson-dark);font-size:19px}
+  .card p{margin:0;font-size:16px}
+  .chart{margin:16px 0 8px}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 70px;align-items:center;gap:10px;margin:8px 0}
+  .bar-row .lab{font-size:16px;font-weight:600;color:var(--ink)}
+  .bar{height:28px;border-radius:6px}
+  .bar-row .val{font-weight:800;font-size:18px;color:var(--ink)}
+  .pair-title{font-weight:700;color:var(--ink);margin:18px 0 4px}
+  .big-diff{font-size:30px;font-weight:800;color:var(--orange-ink)}
+  .finding{border-left:6px solid var(--crimson);background:#fff;padding:4px 0 4px 18px;margin:8px 0 18px}
+  .finding h3{margin:0 0 4px;font-size:22px;color:var(--ink)}
+  @media (max-width:560px){.bar-row{grid-template-columns:110px 1fr 56px}}
 </style>
 </head>
 <body>
+<nav class="top" aria-label="Site"><div class="wrap"><a href="index.html" aria-current="page">Home</a><a href="findings.html">Findings</a><a href="about.html">How the scores work</a></div></nav>
 <header>
   <div class="wrap">
-    <p class="kicker">About this tool</p>
     <h1>Help Isn't Everywhere</h1>
-    <p>A prototype county page showing how much drug-related harm a county has, how much harm reduction help is there, and what's missing.</p>
-    <span class="status">Early prototype · results are preliminary</span>
+    <p>Hannah Ridner · Indiana University Bloomington</p>
   </div>
 </header>
-
 <main class="wrap">
-  <section aria-labelledby="what">
-    <h2 id="what">What this is</h2>
-    <p class="lead">This page comes from my dissertation at Indiana University Bloomington. It covers 367 counties in five states: California, Florida, Indiana, New York and Ohio.</p>
-    <p>For each county it compares need with four kinds of help: syringe programs, naloxone, treatment and recovery housing. The county page itself is not public yet.</p>
+
+  <section aria-labelledby="h-what">
+    <h2 id="h-what">About this project</h2>
+    <p class="lead">I'm a PhD candidate in criminology at Indiana University. My dissertation asks a simple question: where can people actually get harm reduction help, and where can't they?</p>
+    <p>I looked at five states (California, Florida, Indiana, New York and Ohio) and every county in them, 367 in all. I counted four kinds of services: syringe programs, naloxone, treatment and recovery housing. Finding them took 23 separate lists. If it was that hard for me as a researcher, it's likely harder for someone looking for help.</p>
+    <p>I first planned to build one index to flag underserved counties. One score would have hidden which service was missing, so I went descriptive instead, and that turned into a county page. This site shares what I've found so far. It's an early prototype, and the results are preliminary.</p>
+  </section>
+  <section aria-labelledby="h-map">
+    <h2 id="h-map">Where the gaps are</h2>
+    <p>Gold counties are what I call gap counties: more drug-related harm than most counties in their state, and less help than most. Next to each state is how many gap counties it has, out of the counties where I could score need.</p>
+    <figure>
+      <img src="gapmap.png" alt="Maps of California, New York, Ohio, Indiana and Florida with gap counties in gold. California 9 of 54, New York 7 of 58, Ohio 7 of 82, Indiana 17 of 74, Florida 13 of 62.">
+      <div class="legend" aria-hidden="true">
+        <span><i class="sw" style="background:#B7861F"></i>Gap county</span>
+        <span><i class="sw" style="background:#DADDE2"></i>Not a gap county</span>
+        <span><i class="sw" style="background:repeating-linear-gradient(135deg,#F4F5F7 0 3px,#B8BEC6 3px 5px)"></i>Need can't be scored</span>
+      </div>
+      <figcaption>Indiana has the highest share of gap counties (23%), then Florida (21%), California (17%), New York (12%) and Ohio (9%).</figcaption>
+    </figure>
+  </section>
+  <section aria-labelledby="h-more">
+    <h2 id="h-more">More</h2>
+    <p><a href="findings.html">What I've found so far</a>: help follows people more than need, and rural counties are farthest from a syringe program.</p>
+    <p><a href="about.html">How the scores work</a>: what the gap means, the data I used and the limits.</p>
   </section>
 
-  <section aria-labelledby="gap">
-    <h2 id="gap">What the gap means</h2>
-    <p>The gap is a county's need score minus its services score, compared with the other counties in its state.</p>
-    <div class="equation" role="img" aria-label="Need score minus services score equals the gap">
-      <div class="eq-box need"><div class="lbl">Need</div><div class="big">0–100</div><div class="sub">drug harm already there</div></div>
-      <div class="op" aria-hidden="true">−</div>
-      <div class="eq-box svc"><div class="lbl">Services</div><div class="big">0–100</div><div class="sub">help that's there</div></div>
-      <div class="op" aria-hidden="true">=</div>
-      <div class="eq-box gap"><div class="lbl">Gap</div><div class="big">above 0</div><div class="sub">more need than help</div></div>
-    </div>
-    <p class="caption">A score of 50 is the middle county in the state. A bigger gap means more need than help.</p>
-
-    <div class="labels">
-      <div class="label-card"><h3>Gap county</h3><p>Need above 50 and services below 50: more harm than most counties, less help than most.</p></div>
-      <div class="label-card mid"><h3>Need</h3><p>How much drug-related harm a county already has. Not how many people ask for help.</p></div>
-      <div class="label-card zero"><h3>A gap of 0</h3><p>Need and help are balanced compared with the rest of the state. It doesn't mean help is enough.</p></div>
-      <div class="label-card na"><h3>Need can't be scored</h3><p>CDC doesn't report fewer than 10 overdose deaths, and some counties have no HIV rate. 37 counties, mostly small and rural.</p></div>
-    </div>
-    <p class="note">The gap is a starting flag, not a verdict. The county page always shows the pieces behind it, especially which service is missing.</p>
-  </section>
-
-  <section aria-labelledby="how">
-    <h2 id="how">How the scores are built</h2>
-    <p>Every score compares a county only with other counties in its own state, because each state collects data differently.</p>
-    <ol class="steps">
-      <li><h3>Rank</h3><p>Rank each county on each measure, 0 (lowest in the state) to 100 (highest).</p></li>
-      <li><h3>Average</h3><p>Average the 3 need ranks and the 4 service ranks.</p></li>
-      <li><h3>Rank again</h3><p>Rank the two averages within the state, 0 to 100, as the CDC's Social Vulnerability Index does.</p></li>
-      <li><h3>Subtract</h3><p>Need score minus services score is the gap.</p></li>
-    </ol>
-    <div class="example">
-      <span class="name">Example: LaPorte County, Indiana</span>
-      <span class="math">Need <b>92</b> − Services 3 = Gap <b>89</b></span>
-      <p class="detail">No syringe program and no recovery housing. The nearest syringe program is 84 miles away.</p>
-    </div>
-  </section>
-
-  <section aria-labelledby="data">
-    <h2 id="data">Data sources</h2>
-    <p>There is no single national list of harm reduction services, so the service data come from 23 separate lists.</p>
-    <div class="table-wrap">
-      <table>
-        <caption>Highlighted items are still being confirmed.</caption>
-        <thead><tr><th scope="col">What</th><th scope="col">Source</th><th scope="col">Years</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">Overdose deaths</th><td>CDC WONDER, Multiple Cause of Death (crude rate per 100,000)</td><td>2022–2024 combined</td></tr>
-          <tr><th scope="row">People living with HIV</th><td>AIDSVu, county rates</td><td>2023</td></tr>
-          <tr><th scope="row">Opioid prescriptions</th><td>CDC opioid dispensing rates</td><td>2022–2024</td></tr>
-          <tr><th scope="row">Syringe programs, naloxone, recovery housing</th><td>State agency, nonprofit and registry lists; federal or national lists where no state list existed</td><td><span class="check">confirm dates</span></td></tr>
-          <tr><th scope="row">Treatment</th><td>FindTreatment.gov, plus state lists</td><td><span class="check">confirm date</span></td></tr>
-          <tr><th scope="row">Population and distance</th><td>Census population; straight-line miles from each county's Census center of population to the nearest site in the state</td><td><span class="check">confirm year</span></td></tr>
-          <tr><th scope="row">State law</th><td>My coding of state statutes, all 50 states, six policy areas</td><td><span class="check">confirm as-of date</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <p>Every address was mapped to its county, then counted per 100,000 people.</p>
-    <p>State law is coded in six areas: syringe programs, Good Samaritan overdose protection, naloxone access, drug checking, overdose prevention centers and HIV criminalization. Each law is scored:</p>
-    <div class="scale" aria-label="Law scoring">
-      <span class="chip"><span class="n n0">0</span>bans it or says nothing</span>
-      <span class="chip"><span class="n n1">1</span>allowed with conditions</span>
-      <span class="chip"><span class="n n2">2</span>clearly authorized and protected</span>
-    </div>
-    <p>Scores add up within each area and are compared area by area, not as one total.</p>
-  </section>
-
-  <section aria-labelledby="limits">
-    <h2 id="limits">Limitations</h2>
-    <ul class="limits">
-      <li><b>Within-state only.</b> Scores compare counties inside one state. They don't show which state is better or worse overall.</li>
-      <li><b>Lists differ by state.</b> Some services had a state list with street addresses; others only a federal or national list.</li>
-      <li><b>Sites, not capacity.</b> A program open two hours a week counts the same as one open every day.</li>
-      <li><b>Straight-line distance, within the state.</b> Real travel takes longer, and border counties may have closer help across the state line.</li>
-      <li><b>Suppressed data.</b> Counties with fewer than 10 overdose deaths over three years have no need score.</li>
-      <li><b>Small counties.</b> Rates per 100,000 people can swing a lot where few people live.</li>
-      <li><b>Ties.</b> Most counties have no syringe program, so they share the same rank on that measure.</li>
-      <li><b>Preliminary.</b> These results are from a dissertation in progress and may change.</li>
-    </ul>
-  </section>
-
-  <section aria-labelledby="built">
-    <h2 id="built">How it was built</h2>
-    <p>I collected the service lists, geocoded every address, coded state law and chose every measure and decision behind the scores. The analysis is written in R and Quarto, and each decision is logged in the project's decision notes.</p>
-    <div class="ai">
-      <h3>Use of AI tools</h3>
-      <p>I used AI tools (Claude) to help write and check code and to audit the data and numbers. I reviewed the results, re-checked key numbers against the data and made the final decisions myself.</p>
-      <p style="margin:0">No AI produces the scores. Every number comes from the data and the four steps above.</p>
-    </div>
-    <p>Questions about how it works are welcome.</p>
-  </section>
 </main>
-
 <footer>
   <div class="wrap">
     <p><b>Hannah Ridner</b>, PhD Candidate, Department of Criminology &amp; Criminal Justice, Indiana University Bloomington</p>
     <p>Email: hrridner@iu.edu</p>
-    <p>Presented at the American Society of Criminology annual meeting, 2026.</p>
-    <p style="margin:0">Suggested citation: Ridner, H. (2026). <i>Help Isn't Everywhere: Mapping Access to Harm Reduction Services</i> [Prototype and methods]. OSF.</p>
+    <p style="margin:0">Presented at the American Society of Criminology annual meeting, 2026.</p>
   </div>
 </footer>
 </body>
